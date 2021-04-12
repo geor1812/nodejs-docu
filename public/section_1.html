@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <title>Getting Started</title>
+</head>
+<body style="overflow-x: hidden;">
+  <div class="container-fluid p-3">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col">
+          <div class="list-group sticky-top">
+            <a href="/" class="list-group-item list-group-item-action">Home</a>
+            <a href="/section_1" class="list-group-item list-group-item-action bg-info border-info active" aria-current="true">1. Getting Started</a>
+            <a href="/section_2" class="list-group-item list-group-item-action">2. On package.json and node modules</a>
+            <a href="/section_3" class="list-group-item list-group-item-action">3. Designing a REST API</a>
+            <a href="/section_4" class="list-group-item list-group-item-action">4. Express.js</a>
+            <a href="/section_5" class="list-group-item list-group-item-action">5. Development tools</a>
+          </div>
+        </div>
+        <!-- Main Page Content -->
+        <div class="col-10">
+          <div class="container-fluid p-4">
+              <!-- Page intro -->
+            <h1 class="display-4">Getting Started</h1>
+            <img src="/images/node_logo.png" class="img-fluid mx-0 my-3">
+            <p class="lead">
+                This initial section will cover the basic tools needed and how to create and run a “Hello World” NodeJS Project. 
+            </p>
+            <hr class="my-4">
+
+            <!-- Actual page content -->
+            <div class="container my-4 mx-auto">
+              <h2>Tools</h2>
+            
+              <!-- Individual sections -->
+              <div class="mt-5">
+                <h3>NodeJS</h3>
+                 <p> Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting.</p>
+                <p>Installing Node.js depends on the operating system you are using. Taking a look at <a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a> is a good place to start. Here we will document the installation process through a Linux (Ubuntu) terminal.</p>
+                <ol>
+                    <li>Open the terminal</li>
+                    <li>Install nodejs with the following command: <code>apt install nodejs</code> </li>
+                    <li>Check to see if the installation was successful: <code>node -v</code></li>
+                 </ol>
+              </div>
+              <div class="mt-5">
+                <h3>Npm</h3>
+                <p>Npm is a package manager for the JavaScript language and the default package manager used by Node.js. If you installed Node.js using an installer then npm has already been added to your computer. Otherwise you can install it separately like this:</p>
+                <ol>
+                    <li>Open the terminal</li>
+                    <li>Install npm with the following command: <code>sudo apt install npm</code> </li>
+                    <li>Check to see if the installation was successful: <code>npm -v</code></li>
+                 </ol>
+              </div>
+              <div class="mt-5">
+                <h3>A text editor</h3>
+                <p>This will be the editor used to write the code in. Anything works, really but a text editor specially made for code is recommended and my personal choice is Visual Studio Code: <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p>
+              </div>
+              <div class="mt-5">
+                <h3>A command line interface</h3>
+                <p>A command-line interface processes commands to a computer program in the form of lines of text. No matter what operating system you are on, you have access to a CLI. On Windows you can use either Command Prompt or Powershell. On Linux and Mac you have the Terminal.</p>
+              </div>
+              <hr class="my-4">
+              <h2>Hello World!</h2>
+              <div class="mt-5">
+                  <p>To create the most basic NodeJS project possible is as easy as following these steps:</p>
+                  <ol>
+                    <li>Create a file called <code>hello.js</code></li>
+                    <li>In the file write the following code which will print “Hello World” to the console: <code>console.log(“Hello World”);</code> </li>
+                    <li>Open a terminal and navigate to the directory where your JavaScript file is located</li>
+                    <li>To run the file with NodeJS use the command: <code> node hello.js</code></li>
+                 </ol>
+              </div>
+              <div class="mt-5 justify-content">
+                <nav class="">
+                    <ul class="pagination mx-auto">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/">Home</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_2">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+      <!-- Footer -->
+      <div class="row">
+        <nav class="navbar navbar-dark bg-info fixed-bottom justify-content">
+          <p class="text-justify mx-auto text-light">Project created by George Ursachi</p>
+        </nav>
+      </div>
+  </div>
+</body>
+</html>

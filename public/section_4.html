@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <title>Express.js</title>
+</head>
+<body style="overflow-x: hidden;">
+  <div class="container-fluid p-3">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col">
+          <div class="list-group sticky-top">
+            <a href="/" class="list-group-item list-group-item-action">Home</a>
+            <a href="/section_1" class="list-group-item list-group-item-action" >1. Getting Started</a>
+            <a href="/section_2" class="list-group-item list-group-item-action">2. On package.json and node modules</a>
+            <a href="/section_3" class="list-group-item list-group-item-action">3. Designing a REST API</a>
+            <a href="/section_4" class="list-group-item list-group-item-action bg-info border-info active" aria-current="true">4. Express.js</a>
+            <a href="/section_5" class="list-group-item list-group-item-action">5. Development tools</a>
+        </div>
+        </div>
+        <!-- Main Page Content -->
+        <div class="col-10">
+          <div class="container-fluid p-4">
+              <!-- Page intro -->
+            <h1 class="display-4">Express.js</h1>
+            <img src="/images/Express_logo.png" class="img-fluid mx-0 my-3">
+            <p class="lead">
+                It is a back end web application framework for Node.js, released as free and open-source software.  It is designed for building web applications and APIs. It has been called the de facto standard server framework for Node.js. 
+            </p>
+            <hr class="my-4">
+
+            <!-- Actual page content -->
+            <div class="container my-4 mx-auto">
+            
+              <!-- Individual sections -->
+              <div class="mt-5">
+                <h2>Setting up an Express Project</h2>
+                <p>The first step of setting up an Express project is to first install the dependency. This step was shown in section two, which dealt with <code>package.json</code> and node modules. But, as a quick refresher, these are the steps:</p>
+                <ol>
+                    <li>Create a <code>package.json</code> file</li>
+                    <li>Include the express dependency</li>
+                    <li>Install the dependency by running: <code>npm install</code></li>
+                 </ol>
+                 <p>Next we need to actually import Express into our project. We need to create an <code>app.js</code> file in the root directory of our project, which will be responsible for running the server. Importing and using express can be done using the following lines of code:</p>
+                 <pre style="font-family: 'Courier New', monospace;">
+                    const express = require("express");
+                    const app = express();
+                </pre>
+                <p>Now we can use functions provided by Express through the app variable. But our setup is not complete, yet. We need to tell the server on which port to listen. This can be done in the following way:</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                    const port = 8080;
+                    app.listen(port, (error) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        console.log("Server running on port", Number(port));
+                    });
+                </pre>
+                <p>Now when we run the <code>app.js</code> file the server will listen on port 8080, meaning we can access it by going to <code>localhost:8080</code> on our web browser. The method implemented above also has error handling, and console output for ease of use during development.</p>
+            </div>
+            <hr class="my-4">
+              <div class="mt-5">
+                <h2>REST Data API</h2>
+                <p>Now that we have our basic Express project set up, we can start implementing real functionality. This subsection will detail how to create a data REST API using express. We will base this API on the previous design detailed in section three, meaning we will work with data containing information about music tracks.</p>
+                <p>In a real life project scenario, the data would be stored in a database, but for our purposes an array of objects will work. We do need to implement a way of assigning unique IDs. This can be done using an auto-increment variable:</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                    let tracks = [
+                        {id:1, title:"#3", artist:"Aphex Twin", album:"Selected Ambient Works", length:462},
+                        {id:2, title:"Port Rhombus", artist:"Squarepusher", album:"Port Rhombus", length:409},
+                        {id:3, title:"Rrjka", artist:"UFO95", album:"Popularity is Overrated", length:353},
+                        {id:4, title:"Aurora Centralis", artist:"747", album:"Aurora Centralis EP", length:422},
+                        {id:5, title:"Cirrus", artist:"Bonobo", album:"The North Borders", length:352}
+                    ];
+
+                    let  AUTOINCREMENT = tracks.length;
+                </pre>
+
+                <p>All HTTP methods in Express work in the same way. They take two parameters, the endpoint and a callback function which also takes two parameters: <code>req</code> and <code>res</code>, they represent the request and the response.</p>
+                
+                <h3>GET</h3>
+                <p>We will be using GET on two endpoints: <code>/tracks</code> and <code>/tracks/id</code>: the GET on <code>/tracks</code> will retrieve all tracks while the one on <code>/tracks/id</code> will retrieve the track with the specified id.</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                  app.get("/tracks", (req, res) => {
+                    res.send({data: tracks});
+                  });                
+                </pre>
+                <p>Here we are simply sending the entire tracks array inside a JSON object as part of the response.</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                  app.get("/tracks/:id", (req, res) => {
+                    const id = req.params.id;
+                    const track = tracks.find((track) => track.id == id);
+                    res.send({data: track});
+                 });                
+                </pre>
+                <p>In this scenario, we retrieve the path variable <code>id</code> through the request. Using this id we find the track in the array that matches and then send it in the response.</p>
+                
+                <h3>POST</h3>
+                <p>We will be using POST on the <code>/tracks</code> endpoint, which will add one new track.</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                  app.post("/tracks", (req, res) => {
+                    const newTrack = req.body;
+                    newTrack.id = ++AUTOINCREMENT;
+                    tracks.push(newTrack);
+                    res.send({});
+                  });                           
+                </pre>
+                <p>The new track is retrieved from the request body. We assign it a unique id using our <code>AUTOINCREMENT</code> variable and then add it to the tracks array. There are no conventions on what the response should contain after creating a new resource, in this case we send an empty JSON.</p>
+                
+                <h3>PATCH</h3>
+                <p>We will be using PATCH on the <code>/tracks/id</code> endpoint which will update part of the track with the specified id. PATCH applies partial modifications to a resource meaning we will have to modify only the properties that have changed.</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                  app.patch("/tracks/:id", (req, res) => {
+                    tracks = tracks.map(track => {
+                       if (track.id === req.params.id) {
+                            return {...track, ...req.body, id: track.id};
+                       }
+                       return track;
+                    });
+                    res.send({});
+                 });                       
+                </pre>
+                <p>We are using the <code>map</code> function to loop through the elements of the array and only modify the track with the specified id, which we get from the request. The spread operator <code>...</code> is used to create an object containing the updated properties.</p>
+              
+                <h3>DELETE</h3>
+                <p>We will be using DELETE on the <code>/tracks/id</code> endpoint which will delete the track with the specified id.</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                  app.delete("/tracks/:id", (req, res) => {
+                    tracks = tracks.filter(track => track.id !== Number(req.params.id));
+                    res.send({data: tracks});
+                  });                   
+                </pre>
+                <p>We are using the <code>filter</code> function to remove the track whose id corresponds with the path variable and then sending the remaining tracks in the array as part of the response.</p>
+              </div>
+
+              <hr class="my-4">
+              <div class="mt-5">
+                <h2>Serving files with Express</h2>
+                <p>Express can also be used to serve static files, such as HTML files. In fact, the very website you’re browsing now has been built using Express.</p>
+                <p>To send a file using Express we need to set up a GET on an endpoint and then send the file in the response. So, for implementing this we need to create a folder called <code>public</code> in the root directory of our project which will hold resources such as HTML files, CSS and images. We also need to create an html file which will be served, for this example we will call it <code>index.html</code>.</p>
+                <p>When serving files we need their full path. This can cause problems if we’re moving the project to a different directory / computer or working together with a team on the project. Luckily, JavaScript has the built-in <code>__dirname</code> environment variable which contains the path to the root directory of our project, this ensures our code works on any machine / location.</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                  app.get("/", (req, res) => {
+                    res.sendFile(__dirname + "/public/index.html");
+                  });                                   
+                </pre>
+                <p>After adding this piece of code to our project, we will be able to see the index.html file when accessing the server on localhost, at the <code>/</code> endpoint.</p>
+              </div>
+
+              <div class="mt-5 justify-content">
+                <nav class="">
+                    <ul class="pagination mx-auto">
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_3">Previous</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/">Home</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_5">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+      <!-- Footer -->
+      <div class="row">
+        <nav class="navbar navbar-dark bg-info fixed-bottom justify-content">
+          <p class="text-justify mx-auto text-light">Project created by George Ursachi</p>
+        </nav>
+      </div>
+  </div>
+</body>
+</html>

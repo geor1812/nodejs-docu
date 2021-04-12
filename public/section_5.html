@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <title>Development Tools</title>
+</head>
+<body style="overflow-x: hidden;">
+  <div class="container-fluid p-3">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col">
+          <div class="list-group sticky-top">
+            <a href="/" class="list-group-item list-group-item-action">Home</a>
+            <a href="/section_1" class="list-group-item list-group-item-action">1. Getting Started</a>
+            <a href="/section_2" class="list-group-item list-group-item-action">2. On package.json and node modules</a>
+            <a href="/section_3" class="list-group-item list-group-item-action">3. Designing a REST API</a>
+            <a href="/section_4" class="list-group-item list-group-item-action">4. Express.js</a>
+            <a href="/section_5" class="list-group-item list-group-item-action bg-info border-info active" aria-current="true">5. Development tools</a>
+          </div>
+        </div>
+        <!-- Main Page Content -->
+        <div class="col-10">
+          <div class="container-fluid p-4">
+              <!-- Page intro -->
+            <h1 class="display-4">Development tools</h1>
+            <img src="/images/nodemon_logo.png" class="img-fluid mx-0 my-5">
+            <p class="lead">
+                This section will cover tools that can greatly help the development process of our NodeJS application, it will cover running the server with live reloading, scripts, environment variables and dealing with the problems of cross environment development. 
+            </p>
+            <hr class="my-4">
+
+            <!-- Actual page content -->
+            <div class="container my-4 mx-auto">
+              <!-- Individual sections -->
+              <div class="mt-5">
+                <h2>Nodemon</h2>
+                <p>nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+                    nodemon does not require any additional changes to your code or method of development. nodemon is a replacement wrapper for node.
+               </p>
+               <p>There are two ways to install nodemon. Either as a development dependency for your current project or globally, in your system, so that it can be used with any NodeJS project.</p>
+               <p>Install nodemon globally: <code>npm install -g nodemon</code><br>Install nodemon as a dev-dependency: <code>npm install --save-dev nodemon</code></p>
+               <p>To run a project with nodemon, simply replace the word <code>node</code> with <code>nodemon</code></p>
+              </div>
+              <div class="mt-5">
+                <h2>Scripts</h2>
+                <p>In section two we covered the basics of <code>package.json</code>, the file that contains project metadata which is used by <code>npm</code>. Just like the dependencies section, we can add a scripts section. Scripts are composed of one or more terminal commands that we can run using <code>npm</code>.</p>
+                <p>For example, if we wanted to create a script that runs our project for production, and another script that runs our project for development with nodemon, the <code>package.json</code> file will look like this:</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                    {
+                        "scripts": {
+                          "start": "node app.js",
+                          "start-dev": "nodemon app.js"
+                        }
+                    }                                                        
+                </pre>
+                <p>We can run any script using the <code>npm run</code> command followed by the name of the script. So, in order to run the script that will start the project in development mode, we need to use the following command: <code>npm run start-dev</code></p>
+            </div>
+            <div class="mt-5">
+                <h2>Environment Variables</h2>
+                <p>An environment variable is a dynamic-named value that can affect the way running processes will behave on a computer. They are part of the environment in which a process runs.</p>
+                <p>We can define environment variables that our NodeJS project will have access to at run time. Defining environment variables is done in the terminal and the syntax is different depending on the operating system used. Say we wanted to define an environment variable for the port 3000, on which our project will run and then actually run the project in development mode with nodemon:</p>
+                <p>On linux: <code>PORT=3000 nodemon app.js</code><br>
+                    On windows (Powershell): <code>$env:PORT = 3000; nodemon app.js</code></p>
+                <p>In our JavaScript files we can access environment variables through <code>process.env</code>. Having this in mind we can now set up our project in such a way that the port used will be the one from the environment variable and in the case in which an environment variable is not defined, the default port of 8080 will be used:</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                    const port = process.env.PORT || 8080;
+                    app.listen(port, (error) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        console.log("Server running on port", Number(port));
+                    });                                       
+                </pre>
+            </div>
+            <div class="mt-5">
+                <h2>Cross-env</h2>
+                <p>As you may have noticed, scripts differ based on the operating system and terminal your machine is using. This can cause problems if we want to run our project on another operating system, a different CLI or if we’re working in a team where people are using different operating systems.</p>
+                <p>A solution to this is the <code>cross-env</code> development dependency. Using it translates the commands we use in our scripts so that they can be run on any system.</p>
+                <p>To install <code>cross-env</code> we have to add the following section to our <code>package.json</code> file and then run <code>npm install</code></p>
+                <pre style="font-family: 'Courier New', monospace;">
+                    "devDependencies": {
+                        "cross-env": "7.0.3"
+                    }                                                        
+                </pre>
+                <p>Now we can change problematic scripts, such as the one where we define the PORT environment variable: </p>
+                <code>"start-dev": "cross-env PORT=3000 nodemon app.js"</code>
+            </div>
+              <div class="mt-5 justify-content">
+                <nav class="">
+                    <ul class="pagination mx-auto">
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_4">Previous</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/">Home</a>
+                      </li>
+                      <li class="page-item disabled">
+                        <a class="page-link text-info" href="#">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+      <!-- Footer -->
+      <div class="row">
+        <nav class="navbar navbar-dark bg-info fixed-bottom justify-content">
+          <p class="text-justify mx-auto text-light">Project created by George Ursachi</p>
+        </nav>
+      </div>
+  </div>
+</body>
+</html>

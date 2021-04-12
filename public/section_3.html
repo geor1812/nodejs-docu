@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <title>Designing a REST API</title>
+</head>
+<body style="overflow-x: hidden;">
+  <div class="container-fluid p-3">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col">
+          <div class="list-group sticky-top">
+            <a href="/" class="list-group-item list-group-item-action">Home</a>
+            <a href="/section_1" class="list-group-item list-group-item-action">1. Getting Started</a>
+            <a href="/section_2" class="list-group-item list-group-item-action">2. On package.json and node modules</a>
+            <a href="/section_3" class="list-group-item list-group-item-action bg-info border-info active" aria-current="true">3. Designing a REST API</a>
+            <a href="/section_4" class="list-group-item list-group-item-action">4. Express.js</a>
+            <a href="/section_5" class="list-group-item list-group-item-action">5. Development tools</a>
+          </div>
+        </div>
+        <!-- Main Page Content -->
+        <div class="col-10">
+          <div class="container-fluid p-4">
+              <!-- Page intro -->
+            <h1 class="display-4">Designing a REST API</h1>
+            <img src="/images/API.png" class="img-fluid mx-0 my-5">
+            <p class="lead">
+                REST APIs are one of the most common kinds of web services available today. They allow various clients including browser apps to communicate with a server via the REST API. 
+            </p>
+            <hr class="my-4">
+
+            <!-- Actual page content -->
+            <div class="container my-4 mx-auto">
+              <!-- Individual sections -->
+              <div class="mt-5">
+                <h2>Accept and respond with JSON</h2>
+                <p>REST APIs should accept JSON for request payload and also send responses to JSON. JSON is the standard for transferring data. JavaScript has built-in methods to encode and decode JSON either through the Fetch API or another HTTP client.  We should also make sure that our endpoints return JSON as a response.</p>
+              </div>
+              <div class="mt-5">
+                <h2>Using nouns in endpoint paths</h2>
+                <p>We shouldn’t use verbs in our endpoint paths. Instead, we should use the nouns(in plural form) which represent the entity that the endpoint that we’re retrieving or manipulating as the pathname.</p>
+                <p>This is because our HTTP request method already has the verb. Having verbs in our API endpoint paths isn’t useful and it makes it unnecessarily long since it doesn’t convey any new information.</p>
+                <p>The action should be indicated by the HTTP request method that we’re making. The most common methods include GET, POST, PUT, PATCH and DELETE.</p>
+                <p>GET retrieves resources. POST submits new data to the server. PUT updates existing data in its entirety while PATCH updates parts of existing data. DELETE removes data. The verbs map to the CRUD operations.</p>
+             </div>
+              <div class="mt-5">
+                <h2>API table</h2>
+                <p>Let’s imagine we are building an API which handles data on music tracks. We can use the noun “tracks” for our endpoint. The following table describes the associations between endpoints, HTTP methods and the actions performed for each of them.</p>
+                <div class="container w-75 my-5">
+                    <table class="table table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col">/tracks</th>
+                            <th scope="col">/tracks/id</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">GET</th>
+                            <td>Retrieve all existing tracks</td>
+                            <td>Retrieve track with specified id</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">POST</th>
+                            <td>Add one track</td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">PATCH</th>
+                            <td></td>
+                            <td>Update track with specified id</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">DELETE</th>
+                            <td></td>
+                            <td>Delete track with specified id</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+              <div class="mt-5 justify-content">
+                <nav class="">
+                    <ul class="pagination mx-auto">
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_2">Previous</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/">Home</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_4">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+      <!-- Footer -->
+      <div class="row">
+        <nav class="navbar navbar-dark bg-info fixed-bottom justify-content">
+          <p class="text-justify mx-auto text-light">Project created by George Ursachi</p>
+        </nav>
+      </div>
+  </div>
+</body>
+</html>

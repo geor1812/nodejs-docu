@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script language="javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+
+    <title>On package.json and node modules</title>
+</head>
+<body style="overflow-x: hidden;">
+  <div class="container-fluid p-3">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col">
+          <div class="list-group sticky-top">
+            <a href="/" class="list-group-item list-group-item-action">Home</a>
+            <a href="/section_1" class="list-group-item list-group-item-action">1. Getting Started</a>
+            <a href="/section_2" class="list-group-item list-group-item-action bg-info border-info active" aria-current="true">2. On package.json and node modules</a>
+            <a href="/section_3" class="list-group-item list-group-item-action">3. Designing a REST API</a>
+            <a href="/section_4" class="list-group-item list-group-item-action">4. Express.js</a>
+            <a href="/section_5" class="list-group-item list-group-item-action">5. Development tools</a>
+          </div>
+        </div>
+        <!-- Main Page Content -->
+        <div class="col-10">
+          <div class="container-fluid p-4">
+              <!-- Page intro -->
+            <h1 class="display-4">On package.json and node modules</h1>
+            <img src="/images/npm_logo.png" class="img-fluid mx-0 my-5">
+            <p class="lead">
+                If we want to build complex applications with Node.js, simply running single JavaScript files with the node command won’t cut it. We need a way to use external packages and keep track of the dependencies in our project.
+            </p>
+            <hr class="my-4">
+
+            <!-- Actual page content -->
+            <div class="container my-4 mx-auto">
+
+              <!-- Individual sections -->
+              <div class="mt-5">
+                <h2>package.json</h2>
+                <p>All <code>npm</code> packages contain a file, usually in the project root, called <code>package.json</code> - this file holds various metadata relevant to the project. This file is used to give information to npm that allows it to identify the project as well as handle the project's dependencies.</p>
+                <p>It can also contain other metadata such as a project description, the version of the project in a particular distribution, license information, even configuration data - all of which can be vital to both npm and to the end users of the package. </p>
+                <p>The <code>package.json</code> file is normally located at the root directory of a Node.js project.</p>
+            </div>
+              <div class="mt-5">
+                <h2>Installing dependencies</h2>
+                <p>So the first thing that needs to be created in a Node.js project is the <code>package.json</code> file, located in the root directory of said project. For example let’s say we want to build a project that uses Express.js (actually using Express.js will be covered in a further section) and need to install the dependency. </p>
+                <p>The express dependency has to appear in the <code>package.json</code> file and it would look something like this (version may vary):</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                {
+                    "dependencies": {
+                        "express": "4.17.1"
+                    }
+                }
+                </pre>
+                <p>Simply typing this in the file will not add express to our project. We have to run a terminal command that will read our package.json file and install all dependencies: <code>npm install</code></p>
+                <p>After running this command you will notice new files have appeared in your project directory.</p>
+            </div>
+              <div class="mt-5">
+                <h2>package-lock.json</h2>
+                <p>Firstly, <code>package-lock.json</code> is automatically generated for any operations where <code>npm</code> modifies either the <code>node_modules</code>  tree, or <code>package-lock.json</code>. It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.</p>
+              </div>
+              <div class="mt-5">
+                <h2>node_modules</h2>
+                <p>Secondly, the <code>node_modules</code> is a directory only for build tools, the external modules that your project depends upon. When you npm install them, they are downloaded from the web and copied into the <code>node_modules</code> folder and Node.js is trained to look for them there when you import them (without a specific path)</p>
+                <p>To import external modules in Node.js we must use the built-in <code>require</code> function. For example, if we wanted to import the express module we installed earlier we would write:</p>
+                <pre style="font-family: 'Courier New', monospace;">
+                    const express = require("express");
+                </pre>
+            </div>
+              <div class="mt-5 justify-content">
+                <nav class="">
+                    <ul class="pagination mx-auto">
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_1">Previous</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/">Home</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link text-info" href="/section_3">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+      <!-- Footer -->
+      <div class="row">
+        <nav class="navbar navbar-dark bg-info fixed-bottom justify-content">
+          <p class="text-justify mx-auto text-light">Project created by George Ursachi</p>
+        </nav>
+      </div>
+  </div>
+</body>
+</html>
